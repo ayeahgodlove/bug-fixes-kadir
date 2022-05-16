@@ -1,166 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie_API</title>
-  </head>
-  <body>
-      <h1>Movie_API</h1>
-      <h3>A movies web application</h3>
-      <h2>Objective</h2>
-      <p>To build the server-side component of a “movies” web application. The web
-        application will provide users with access to information about different
-        movies, directors, and genres. Users will be able to sign up, update their
-        personal information, and create a list of their favorite movies.</p>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MyFlix_App</title>
 
-        <div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 
-          <h2>Essential Features</h2>
+<body>
+  <header>
+      <h1> 
+         <p> Welcome to myFlix!</p> 
+      </h1>
 
-          <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Request</th>
-                    <th>URL</th>
-                    <th>Method</th>
-                    <th>Query Parameters</th>
-                    <th>Request body data format</th>
-                    <th>Response body data format</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Return a list of all the movies to the user</td>
-                    <td>/movies</td>
-                    <td>GET</td>
-                    <td>None</td>
-                    <td>None</td>
-                    <td>A JSON object holding all the data about all the movies</td>
-                </tr>
-                <tr>
-                    <td>Return data about a single movie by title to the user</td>
-                    <td>/movies/[title]</td>
-                    <td>GET</td>
-                    <td>:title</td>
-                    <td>None</td>
-                    <td>A JSON object holding all the data about a single movie. Example:<br>
-                        {
-                            title: 'Inception',
-                            director: 'Christopher Nolan',
-                            genre: 'Sci-Fi'
-                          }      
-                    </td>
-                </tr>
-                <tr>
-                    <td>Return data about a genre by name</td>
-                    <td>movies/genre/[genre]</td>
-                    <td>GET</td>
-                    <td>:genre</td>
-                    <td>None</td>
-                    <td>A JSON object format containing movies belonging to a specific genre. Example: <br>
-                        {
-                            title: 'Shutter-Island',
-                            director: 'Martin Scorsese',
-                            genre: 'Suspense-Thriller'
-                          } <br>
-                        {
-                              title: 'The Fugitive',
-                              director: 'Andrew Davis',
-                              genre: 'Suspense-Thriller'
-                          }
-                    </td>
-                </tr>
-                <tr>
-                    <td>Return data about a director by name</td>
-                    <td>/movies/director/[director]</td>
-                    <td>GET</td>
-                    <td>:director</td>
-                    <td>None</td>
-                    <td>A JSON format data holding all the data about a director by name. Example:<br>
-                        {
-                            name: 'Christopher Nolan',
-                            bio: 'A short Bio',
-                            dob: '30th July'
-                          }
-                        </td>
-                </tr>
+    <h2>
+      <p> This Web application will provide users with access to information about different movies, directors, and genres.</p> 
+      <p> Users will be able to sign up, update their personal information, and create a list of their favorite movies. </p> 
     
-                <tr>
-                    <td>Allow users to add a movie to their list of favorites</td>
-                    <td>/favourite/add/[id]/[title]</td>
-                    <td>POST</td>
-                    <td>:add</td>
-                    <td>A JSON format data containing all the new data about the movie to be added. Example:<br>
-                        {
-                        title: 'Wrath Of Man',
-                        director: 'Guy Ritchie',
-                        genre: 'Action-Thriller'
-                        }
-                    </td>
-                    <td>A JSON format data containing the newly added movie details. <br>
-                        {
-                            "id": 1,
-                            "fullname": "John Doe",
-                            "email": "johndoe@mail.com",
-                            "favMovies": [
-                                {
-                                    "title": "Inception",
-                                    "director": "Christopher Nolan",
-                                    "genre": "Sci-Fi"
-                                },
-                                {
-                                    "title": "Wrath Of Man",
-                                    "director": "Guy Ritchie",
-                                    "genre": "Action-Thriller"
-                                }
-                            ]
-                        }
-                    
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td>Allow new users to register</td>
-                    <td>/users/register</td>
-                    <td>POST</td>
-                    <td>:register</td>
-                    <td>Data containing new user details</td>
-                    <td>A text response indicating that the registeration was successful</td>
-                </tr>
-    
-                <tr>
-                    <td>Allow users to update their user info</td>
-                    <td>/users/update/[id]</td>
-                    <td>PUT</td>
-                    <td>:id</td>
-                    <td>Data containing changes to old profile</td>
-                    <td>A text response indicating that the changes were successfully deployed</td>
-                </tr>
-    
-                <tr>
-                    <td>Allow users to remove a movie from their list of favorites</td>
-                    <td>/favourite/delete/[id]/[title]</td>
-                    <td>DELETE</td>
-                    <td>:id, :title</td>
-                    <td>None</td>
-                    <td>An array without the removed movie</td>
-                </tr>
-    
-                <tr>
-                    <td>Allow existing users to deregister</td>
-                    <td>/users/deregister/[id]</td>
-                    <td>DELETE</td>
-                    <td>:id</td>
-                    <td>None</td>
-                    <td>A text response indicating that the user profile was successfully deregistered</td>
-                </tr>  
-            </tbody>
-        </table>
+    </h2> 
+</header>
 
-        </div>
-       
-  </body>
-  
-  </html>
+<main> 
+  <table>
+      <tr>
+        <th>Request</th>
+        <th>URL</th>
+        <th>Request Parameter</th>
+        <th>HTTP Method</th>
+        <th>Response body data format</th>
+        <th>Request body data format</th>
+      </tr>
+
+      <tr>
+        <td>List of movies on myFlifx </td>
+        <td>"/movies"</td>
+        <td>none</td>
+        <td>GET <br>app.get("/movies", (req,res) =>{
+              res.send('Successful GET request returns all the movies available on myFlix');});</td>
+        <td>
+            A JSON object holding data about all the movies <br />
+            Example: {Title: "", Description: ""} <br />
+            Director: { Name: "", Bio: "" }, Genre: { Name: "", Description:""} }
+        </td>
+        <td>None</td>
+      </tr>
+
+      <tr>
+        <td>Search a movie</td>
+        <td>"/movies/:title"</td>
+        <td>:title</td>
+        <td>GET <br>app.get("/movies/:title", (req,res)=> {
+          res.send('Successful GET request returns searched movie');});</td>
+          <td>
+            A JSON object holding data about a single movie <br />
+            Example: {Title: "", Description: ""}
+          </td>
+        <td>None</td>
+    </tr>
+
+      <tr>
+        <td>Search a genre of movie </td>
+        <td>"'/movies/genre/:genreName"</td>
+        <td>:genreName</td>
+        <td>GET<br>app.get("'/movies/genre/:genreName", (req,res) => {
+          res.send('Successful GET request returning list of movies called by searched genre');});</td>
+          <td>
+          A JSON object holding data about a genre <br />
+          Example: Genre: { Name: ""}
+          </td> 
+          <td>None </td>
+      </tr>
+      
+      <tr>
+        <td>Search a director by name</td>
+        <td>"/movies/director/:directorName"</td>
+        <td>:name</td>
+        <td>GET <br>app.get("/movies/directors/:name", (req,res) => {
+          res.send('Successful GET request returning data about a specific director with a Bio');});</td>
+            <td>A JSON object holding data about a director <br />
+              Example: Director: { Name: "", Bio: "" }</td> 
+          <td>None </td>
+        </tr>
+      
+      <tr>
+          <td>Creates new users Account</td>
+          <td>"/users"</td>
+          <td>none</td>
+          <td>POST <br>app.post("/users", (req,res) => {
+          req.post('Successful POST will create a new user Account');});</td>
+          <td>None</td>
+          <td>
+            A JSON object is requested  <br />
+            Example: {
+              name: String,
+              Password: String,
+              Email: String,
+              Birthday: Date
+            }
+          </td>
+        </tr>
+    
+
+      <tr>
+          <td>Update user's info</td>
+          <td>"/users/:id"</td>
+          <td>:id</td>
+          <td>PUT <br>app.put("/users/:id", (req,res) =>{
+          req.put('Successful PUT will allow user to update their info');});</td>
+          <td> A JSON object is provided after changes  <br />
+            Example: {
+              name: String,
+              Password: String,
+              Email: String,
+              Birthday: Date
+            }</td>
+          <td>
+            A JSON object is requested holding data about User <br />
+            Example: {
+              name: String,
+              Password: String,
+              Email: String,
+              Birthday: Date
+            }
+          </td>
+        </tr>
+
+      <tr>
+          <td>Add a movie to User's list of favorites</td>
+          <td>"/users/:id/:movieTitle"</td>
+          <td>:id,:movieTitle</td>
+          <td>POST <br>app.post("/users/:id/:movieTitle", (req,res)  =>{
+          req.put('Successful POST will add movie to user's list');});</td>
+          <td>A text message indicating that the movie has been added</td>
+          <td>None</td>
+    
+        </tr>
+
+      <tr>
+          <td>Remove a movie from their list of favorites</td>
+          <td>"/users/:id/:movieTitle"</td>
+          <td>:id,:movieTitle</td>
+          <td>DELETE <br>app.delete("/users/:id/:movieTitle", (req,res)  =>{
+          res.delete('Successful DELETE will DELETE a movie from user's list');});</td>
+          <td>A text message indicating that the movie has been deleted</td></td> 
+          <td>None</td>
+     
+        </tr>
+
+      <tr>
+            <td>Delete user's Account</td>
+            <td>"/users/:id"</td>
+            <td>:id</td>
+            <td>DELETE <br> app.delete("/users/:id",(req,res) =>{
+              res.delete('Successful DELETE will DELETE a user's Account');});</td>
+              <td>A text message indicating that the user has been deleted</td>
+            <td>None</td>
+ 
+      </tr>
+      
+    </table>
+
+
+</main>
+
+
+
+</body>
+
+</html>
