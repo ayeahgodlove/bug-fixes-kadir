@@ -205,3 +205,21 @@ Timestamp: Mon May 16 2022 13:49:45 GMT+0200 (Mitteleuropäische Sommerzeit)
 URL: /users/register
 Timestamp: Mon May 16 2022 13:49:52 GMT+0200 (Mitteleuropäische Sommerzeit)
 
+URL: /movies/director/christopher%20nolan
+Timestamp: Mon May 16 2022 14:10:40 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /movies
+Timestamp: Mon May 16 2022 14:11:09 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /users
+Timestamp: Mon May 16 2022 14:11:18 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /users
+Timestamp: Mon May 16 2022 14:11:27 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /movies
+Timestamp: Tue May 17 2022 11:37:03 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /movies
+Timestamp: Tue May 17 2022 11:38:43 GMT+0200 (Mitteleuropäische Sommerzeit)
+
