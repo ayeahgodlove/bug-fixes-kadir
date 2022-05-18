@@ -15,6 +15,7 @@ const Users = Models.User;
 const bcrypt = require('bcrypt');
 
 mongoose.connect('mongodb://localhost:8080/myFlixDB', {userNewUrlParser: true, useUnifiedTopology: true });
+// Note: was localhost:27017 and I changed it to 8080. Is this a problem)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
