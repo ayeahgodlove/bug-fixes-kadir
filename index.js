@@ -6,8 +6,44 @@ const app = express();
 const PORT = 8080;
 const uuid = require('uuid');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+const { check, validationResult } = require('express-validator');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+const bcrypt = require('bcrypt');
+
+mongoose.connect('mongodb://localhost:8080/myFlixDB', { userNewUrlParser: true, useUnifiedTopology: true });
+// Note: was localhost:27017 and I changed it to 8080. Is this a problem)
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const cors = require('cors');
+app.use(cors());
+
+/* rest of code goes here*/
+
+let userSchema = mongoose.Schema({
+    Username: { type: String, required: true },
+    Password: { type: String, required: true },
+    Email: { type: String, required: true },
+    Birthday: Date,
+    FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+});
+
+userSchema.statics.hashPassword = (password) => {
+    return bcrypt.hashSync(password, 10);
+};
+
+userSchema.methods.validatePassword = function(password) {
+    return bcrypt.compareSync(password, this.Password);
+};
+
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 
 let users = [{
         id: 1,
@@ -141,6 +177,34 @@ app.post('/favourite/add/:id', (req, res) => {
     res.send('Request was successful')
 });
 
+app.post('/users', (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+        .then((user) => {
+            if (user) {
+                //If the user is found, send a response that it already exists
+                return res.status(400).send(req.body.Username + ' already exists');
+            } else {
+                Users
+                    .create({
+                        Username: req.body.Username,
+                        Password: hashedPassword,
+                        Email: req.body.Email,
+                        Birthday: req.body.Birthday
+                    })
+                    .then((user) => { res.status(201).json(user) })
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(500).send('Error: ' + error);
+                    });
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+        });
+});
+
 //For allowing users to remove a movie from their list of favorites movies-text
 app.delete('/favourite/delete/:id/:title', (req, res) => {
     const user = users.find((u) => u.id == req.params.id);
@@ -188,4 +252,10 @@ app.use((err, req, res, next) => {
 });
 
 //Listen for request
-app.listen(PORT, () => console.log("App is running"));
+
+//app.listen(PORT, ()=>console.log("App is running"));
+
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+    console.log('Listening on Port ' + port);
+});
