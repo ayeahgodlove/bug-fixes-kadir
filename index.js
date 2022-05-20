@@ -1,5 +1,4 @@
 const express = require("express");
-const res = require("express/lib/response");
 morgan = require('morgan');
 const path = require("path")
 const app = express();
