@@ -2,7 +2,7 @@ const express = require("express");
 morgan = require('morgan');
 const path = require("path")
 const app = express();
-const PORT = 8080;
+const PORT = 5000;
 const uuid = require('uuid');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -13,7 +13,9 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const bcrypt = require('bcrypt');
 
-mongoose.connect('mongodb://localhost:8080/myFlixDB', { userNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(
+    'mongodb+srv://admin:Admin2022@cluster0.l6xp7.mongodb.net/myMovieDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }
+);
 // Note: was localhost:27017 and I changed it to 8080. Is this a problem)
 
 app.use(bodyParser.json());
